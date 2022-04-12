@@ -1,58 +1,125 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+
+      <v-col
+        class="mb-5"
+        cols="12"
+        style="padding:50px"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          家庭天地
+        </h2>
+        <h4 style="color:gray">高一時做的自主學習</h4>
+        <br>
+
+        <v-row justify="center">
+          <v-spacer></v-spacer>
+          <v-col
+            v-for="(name,i) in bottomName"
+            :key="i"
+          >
+            <v-tooltip bottom>
+              <template v-slot:activator="{on, attrs}">
+                <v-btn
+                  outlined
+                  x-large
+                  v-bind="attrs"
+                  v-on="on"
+                  :to="name.to"
+                >{{name.text}}</v-btn> 
+              </template>
+              <span>{{name.tooltip}}</span>
+            </v-tooltip>
+            <v-spacer></v-spacer>
+          </v-col>
+          <v-spacer></v-spacer>
+        </v-row>
+      </v-col>
+    </v-row>
+      <hr>
+    <v-row class="text-center">
+      <v-col
+        class="mb-5"
+        cols="12"
+        style="padding:70px 70px 50px"
+      >
+        <h2 class="headline font-weight-bold mb-3" >
+          日常記情
+        </h2>
+        <h4 style="color:gray">平日下心情的結晶</h4>
+        <br>
+        <v-row class="text-center">
+          <v-spacer></v-spacer>
+          <v-col
+            v-for="(link, i) in daily"
+            :key="i"
+            cols="4">
+            <v-tooltip bottom>
+              <template v-slot:activator="{on, attrs}">
+                <v-btn
+                  outlined
+                  x-large
+                  :to="link.to"
+                  v-bind="attrs"
+                  v-on="on"
+                  class="subheading mx-3"
+                >
+                  {{ link.text }}
+                </v-btn>
+              </template>
+              <span>{{ link.tooltip }}</span>
+            </v-tooltip>
+            <v-spacer></v-spacer>
+          </v-col>
+          <v-spacer></v-spacer>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
-</script>
+  export default {
+    name: 'HelloWorld',
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+    data: () => ({
+
+      daily: [
+        {
+          text: '不定時日記',
+          tooltip:'聽說心情不好時產量特高',
+          to: '/daily#RandonDaily',
+        },
+        {
+          text: '粉色的煩惱',
+          tooltip:'少年維特對於愛情的困擾',
+          to: '/daily#PinkTrouble',
+        },
+      ],
+
+      bottomName: [
+        {
+          text:'沂佐篇',
+          tooltip:'關於作者本人的趣味小事',
+          to:'/my_family#Hito',
+        },
+        {
+          text:'媽媽篇',
+          tooltip:'母親從小到大的粗神經事件',
+          to:'/my_family#Mom',
+        },
+        {
+          text:'爸爸篇',
+          tooltip:'嚴厲的父親也會有邏輯爆炸的時候',
+          to:'/my_family#Dad',
+        },
+        {
+          text:'阿公阿婆篇',
+          tooltip:'人老心年輕的長輩碰撞出的故事',
+          to:'/my_family#grandparents',
+        },
+      ],
+    }),
+  }
+</script>
